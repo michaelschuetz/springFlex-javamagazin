@@ -12,11 +12,16 @@
         <jm.name>Spring Flex Application</jm.name>
         <web.context.root>springFlex-javamagazin</web.context.root>
 
+        <!-- https://docs.sonatype.org/display/FLEXMOJOS/How+to+set+Flex+SDK+version -->
         <!--TODO versions -->
-        <!--<flex.version>4.5.0.17077</flex.version>-->
-        <flex.version>3.5.0.12683</flex.version>
-        <!--<flexmojos.version>4.0-alpha-5</flexmojos.version>-->
-        <flexmojos.version>3.7.1</flexmojos.version>
+        
+        <!-- latest working <flex.version>3.5.0.12683</flex.version> -->
+        <!-- latest official release: 4.1.0.16076 - can't find in maven REPO!!  -->
+        <flex.version>4.5.0.17077</flex.version>
+
+        <!-- Latest working <flexmojos.version>3.7.1</flexmojos.version>-->
+        <flexmojos.version>4.0-alpha-5</flexmojos.version>
+
         <spring.version>3.0.4.RELEASE</spring.version>
         <spring-flex.version>1.0.3.RELEASE</spring-flex.version>
     </properties>
@@ -28,13 +33,13 @@
 
     <repositories>
 
-        <!-- TODO just an alternative repo for sonatype-flex-repository -->
+        <!-- TODO just an alternative (working) repo for sonatype-flex-repository -->
         <repository>
             <id>flash-nexus-repository</id>
             <url>http://www.flashnexus.org/nexus/content/groups/public</url>
         </repository>
 
-        <!-- TODO This is the preferred one, but not working at the moment
+        <!-- TODO This is the preferred one, but not working at the moment. Produces strange "swc expected" errors.
         <repository>
 			<id>sonatype-flex-repository</id>
 			<url>https://repository.sonatype.org/content/groups/flexgroup</url>
@@ -46,10 +51,10 @@
 			</snapshots>
 		</repository>
         -->
-        <!-- TODO unused? -->
+
         <repository>
             <id>sonatype-public-repository</id>
-            <url>http://repository.sonatype.org/content/groups/public</url>
+            <url>https://repository.sonatype.org/content/groups/public</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -113,6 +118,14 @@
                     <artifactId>flexmojos-maven-plugin</artifactId>
                     <version>${flexmojos.version}</version>
                     <extensions>true</extensions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.adobe.flex</groupId>
+                            <artifactId>compiler</artifactId>
+                            <version>${flex.version}</version>
+                            <type>pom</type>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>

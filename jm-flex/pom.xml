@@ -42,7 +42,9 @@
                         <artifactId>flexmojos-maven-plugin</artifactId>
                         <extensions>true</extensions>
                         <configuration>
-                            <ignoreVersionIssues>true</ignoreVersionIssues>
+                            <debug>true</debug>
+                            <configurationReport>true</configurationReport>
+                            <ignoreVersionIssues>false</ignoreVersionIssues>
                             <services>${basedir}/src/main/config/services-config-local.xml</services>
                             <contextRoot>/${web.context.root}</contextRoot>
                             <locales>
