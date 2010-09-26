@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 @RemotingDestination
 public class HelloWorldService {
     public String say(String name) {
-        return "Hello3 " + name;
+        return "Hello4 " + name;
     }
 }
