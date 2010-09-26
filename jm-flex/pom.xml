@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<project>
+    <parent>
+        <groupId>com.acme</groupId>
+        <artifactId>jm-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.acme</groupId>
+    <artifactId>jm-flex</artifactId>
+    <packaging>swf</packaging>
+    <version>0.1-SNAPSHOT</version>
+    <name>${jm.name} - Flex Client</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex.version}</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>index</finalName>
+        <sourceDirectory>src/main/flex</sourceDirectory>
+    </build>
+
+    <profiles>
+        <!-- local environment. default configuration -->
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.flexmojos</groupId>
+                        <artifactId>flexmojos-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <ignoreVersionIssues>true</ignoreVersionIssues>
+                            <services>${basedir}/src/main/config/services-config-local.xml</services>
+                            <contextRoot>/${web.context.root}</contextRoot>
+                            <locales>
+                                <locale>en_US</locale>
+                            </locales>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- stage environment -->
+        <profile>
+            <id>stage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.flexmojos</groupId>
+                        <artifactId>flexmojos-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <ignoreVersionIssues>true</ignoreVersionIssues>
+                            <!--					<output>${basedir}/../testdrive/src/main/webapp/${project.build.finalName}/${project.build.finalName}.swf</output>-->
+                            <!--					<output>${basedir}/target/${project.build.finalName}/${project.build.finalName}.swf</output>-->
+                            <services>${basedir}/src/main/config/services-config.xml</services>
+                            <contextRoot>/${web.context.root}</contextRoot>
+                            <locales>
+                                <locale>en_US</locale>
+                            </locales>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

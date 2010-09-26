@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+
+
+
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+
+			private function onResultEvent(event:ResultEvent):void {
+				Alert.show(event.result as String);
+			}
+		]]>
+	</mx:Script>
+
+	<mx:RemoteObject id="helloWorldService" destination="helloWorldService">
+		<mx:method name="say" result="onResultEvent(event)" />
+
+	</mx:RemoteObject>
+
+	<mx:HBox horizontalCenter="0" verticalCenter="0">
+		<mx:Label text="Enter your name:" />
+		<mx:TextInput id="who" />
+		<mx:Button click="{helloWorldService.say(who.text)}" label="Say" />
+	</mx:HBox>
+</mx:Application>
