@@ -3,10 +3,8 @@
 
 Source Code for Spring3 Flex4 article in JavaMagazin.
 
-Current:
-Spring 3.0.4
-Flex 3.5
-Maven 3
-
-TODO:
+* Spring 3
 * Flex 4
+* Maven 3
+
+Build successful with Maven 2.2 and 3.beta2.
