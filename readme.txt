@@ -33,3 +33,7 @@ TODO:
 * try updating Spring-flex(blazeds) version
 * test if all listed repos are required (see TODO's)
 * test usage of Apache 7
+* fix duplicate spring config
+
+Extension:
+* provide spring flex archetype (see http://code.google.com/p/maven-blazeds-spring-archetype/ and http://code.google.com/p/flex-blazeds-spring-archetype/)
