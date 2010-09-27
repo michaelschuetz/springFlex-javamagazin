@@ -22,3 +22,11 @@ Run application:
 3) Paste war-file to \\apache-tomcat-6.0.29\webapps
 4) Run \\apache-tomcat-6.0.29\bin\startup (.bat for Windows, .sh for Unix)
 5) Point browser to http://localhost:8080/springFlex-javamagazin
+
+############
+
+TODO:
+* add Spring JUnit test case
+* try updating Spring-flex(blazeds) version
+* test if all listed repos are required (see TODO's)
+* test usage of Apache 7
