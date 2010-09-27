@@ -23,6 +23,9 @@ Run application:
 4) Run \\apache-tomcat-6.0.29\bin\startup (.bat for Windows, .sh for Unix)
 5) Point browser to http://localhost:8080/springFlex-javamagazin
 
+Hint:
+If older versions of either Flex or Flex-Mojo has been used before, unexpected errors might occur during build. Consider building against empty local repository.
+
 ############
 
 TODO:
