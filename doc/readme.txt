@@ -40,12 +40,12 @@ Wohl ziemlich jeder gönnt sich in regelmäßigen Abständen mal eine gute Pizza
 
 #Die Anforderungen
 - Frontend
-	- einfach und klar zu bedienen
-	- in jedem Browser gleich
+ - einfach und klar zu bedienen
+ - in jedem Browser gleich
 - Backend:
-	- Transaktionalität (Wenn eine Bestellung nicht klappt (z.b. falsche Bezahlinformationen), wäre es fatal, wenn die Bestellung auch nur teilweise ausgeführt werden würde)
-	- Benachrichtung --> Asnychron
-- 
+ - Transaktionalität (Wenn eine Bestellung nicht klappt (z.b. falsche Bezahlinformationen), wäre es fatal, wenn die Bestellung auch nur teilweise ausgeführt werden würde)
+ - Benachrichtung --> Asnychron
+-
 
 #Architektur
 Schaubild Schichten Zusammenspiel
@@ -62,9 +62,39 @@ Warum Flex?
 - klassische Vorteile..
 - Entwicklungsteams vertikal
 
+Flex 4  - was ist neu
+
+Compilieren mittels Flex Mojo
 
 ### Spring 3. Das Backend.
 
+
 ### Maven 3. Das Build-System.
+Die Beispiel-Anwendung besteht aus XX verschiedenen Versionen von Java-Bibliotheken (JAR's), welche je aufeinander wirken. Maven scheint mit seiner Versionsverwaltung sowie dem modularen Aufbau wie gemalt für diesen Zweck.
+
+Das Projekt besteht aus folgenden Maven-Artifakten:
+TODO
+
+### Im Zusammenspiel
+Nachdem die Einzelkomponenten beleuchtet wurden, soll jetzt das Zusammenspiel von Fronten, Backend und Infrastruktur beleuchtet werden.
+
+## Kompilieren
+Flex Mojos
+
+## Bauen
+mvn
+
+## Testen
+deploy gegen Tomcat 6
 
 
+Ausbau
+Was noch fehlt für ein professionelles 
+
+- Test-Infrastruktur
+- Deploy-Job (Maven oder Konfigurationen mittels ant)
+- CI
+
+
+Fazit
+###
