@@ -34,18 +34,16 @@ In unserem professionellen Umfeld wird auf die Kombination von Java im Backend u
 
 Da wir mit unsere Demoandwendung quasi von Null beginnen, möchten wir je die neuesten Versionen der verwendete Technologien und Frameworks einsetzen. Gerade das saubere Zusammenspiel stellt dabei sicherlich die größte Herausforderung dar.
 
-### Die Beispielanwendung
-Wohl ziemlich jeder gönnt sich in regelmäßigen Abständen mal eine gute Pizza - so auch wir. Warum aber die Pizza nicht auch direkt online bestellen? Zugegeben, wir waren nicht die ersten mit dieser Idee. Dennoch
+### Die Kombination aus Java und Flex
+Den Reiz dieser Kombination sehen wir in der sauberen Trennung zwischen Front- und Backend. Diese Aussage trifft sicherlich für die meisten RIA's zu. Aus Entwicklungssicht führt diese Trennung zu einer vertikalen Entwicklung. Das heißt, dass die Java-Entwicklung von der Flex-Entwicklung getrennt ist. Entscheidend dafür ist ein sauberes Design der Schnittstellen.
 
+Kompilieren
+
+### Die Beispielanwendung
+Wohl ziemlich jeder gönnt sich in regelmäßigen Abständen mal eine gute Pizza - so auch wir. Warum aber die Pizza nicht direkt auch online bestellen? Zugegeben, wir waren nicht die ersten mit dieser Idee.
 
 #Die Anforderungen
-- Frontend
- - einfach und klar zu bedienen
- - in jedem Browser gleich
-- Backend:
- - Transaktionalität (Wenn eine Bestellung nicht klappt (z.b. falsche Bezahlinformationen), wäre es fatal, wenn die Bestellung auch nur teilweise ausgeführt werden würde)
- - Benachrichtung --> Asnychron
--
+Das Ziel der Plattform ist es, dass Kunden schnell, einfach und zuverlässig Ihre Pizzen online bestellen können. Daraus ergeben sich diverse Anforderungen an Front- und Backend. So ist es entscheidend, dass die Benutzeroberfläche des Frontends inuitiv und klar aufgebaut ist. Um eine möglichst hohe Zielgruppe zu erreichen, soll das GUI browserübegreifend immer gleich aussehen. Das Backend hat hingegen die Aufgabe, Anforderungen wie Transaktionalität oder asynchonre Benachrichtungen abbilden zu können. 
 
 #Architektur
 Schaubild Schichten Zusammenspiel
@@ -79,7 +77,10 @@ TODO
 Nachdem die Einzelkomponenten beleuchtet wurden, soll jetzt das Zusammenspiel von Fronten, Backend und Infrastruktur beleuchtet werden.
 
 ## Kompilieren
-Flex Mojos
+
+Zum Kompilieren der Flex Sourcen wird das Maven Plugin "Flex Mojos" verwendet. Das Plugin wird passend zu entsprechenden Flex-Version gewählt.
+
+
 
 ## Bauen
 mvn
