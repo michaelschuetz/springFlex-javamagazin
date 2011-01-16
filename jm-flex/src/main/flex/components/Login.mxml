@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 title="Login">
+	
+	<fx:Metadata>
+		[Event(name="login", type="events.LoginEvent")]
+	</fx:Metadata> 
+
+	<fx:Script>
+		<![CDATA[
+			import events.LoginEvent;
+			
+			private function onLoginClick() : void {
+				
+				loginFailedMessage.text = "";
+				
+				if((username.text == "mario" && password.text == "mario")
+					|| (username.text == "sofia" && password.text == "sofia")
+					|| (username.text == "luigi" && password.text == "luigi")
+					|| (username.text == "federica" && password.text == "federica")){
+					
+					var loginEvent:LoginEvent = new LoginEvent(LoginEvent.LOGIN);
+					loginEvent.user = username.text;
+
+					username.text = "";
+					password.text = "";
+					
+					dispatchEvent(loginEvent);
+					
+				} else {
+					loginFailedMessage.text = "Login Fehler! Bitte prüfen Sie Ihre Zugangsdaten!";
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center"/>
+	</s:layout>
+	
+	<mx:VBox width="280"  paddingLeft="15" verticalGap="0">
+		<mx:HBox width="100%">
+			<mx:Label text="Zugangsdaten:" fontWeight="bold"/>
+		</mx:HBox>
+		<mx:VBox width="100%" paddingLeft="20" verticalGap="0">
+			<mx:Label text="mario/mario" />
+			<mx:Label text="sofia/sofia" />
+			<mx:Label text="luigi/luigi" />
+			<mx:Label text="federica/federica" />
+		</mx:VBox>
+	</mx:VBox>
+	
+	<mx:Form width="280" >
+		<mx:FormItem label="Username:" required="true">
+			<mx:TextInput id="username" text="" maxChars="16" />
+		</mx:FormItem>
+		<mx:FormItem label="Password:" required="true">
+			<mx:TextInput id="password" maxChars="16" displayAsPassword="true" />
+		</mx:FormItem>
+	</mx:Form>
+	
+	<s:Group width="280">
+		<mx:Button id="login" label="Login" click="onLoginClick()" right="20"/>
+	</s:Group>
+	
+	<mx:HBox id="loginFailedMsgBox" width="100%" height="50" verticalAlign="middle" paddingLeft="15">
+		<mx:Text id="loginFailedMessage" width="100%"/>
+	</mx:HBox>
+	
+</s:Panel>

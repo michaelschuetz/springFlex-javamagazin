@@ -24,7 +24,7 @@
     </dependencies>
 
     <build>
-        <finalName>index</finalName>
+        <finalName>Main</finalName>
         <sourceDirectory>src/main/flex</sourceDirectory>
     </build>
 

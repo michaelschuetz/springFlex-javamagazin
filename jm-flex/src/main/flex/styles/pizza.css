@@ -1,0 +1,32 @@
+
+@namespace s "library://ns.adobe.com/flex/spark";
+
+global {
+	font-size: 12;
+}
+
+s|Application {
+	background-color:#EAFBCF;	
+}		
+
+s|Panel {
+	chrome-color:#92ae65;
+}
+
+.contentArea {
+	
+}
+
+.strong {
+	font-weight:bold;
+}
+
+.link {
+	font-weight:bold;
+	color:#0B8024;
+	text-decoration:underline;
+}
+
+#loginFailedMessage {
+	color:#AD0000;
+}

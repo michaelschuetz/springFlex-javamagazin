@@ -63,7 +63,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+<!--        <dependency>-->
+<!--            <groupId>com.adobe.flex.framework</groupId>-->
+<!--            <artifactId>spark</artifactId>-->
+<!--            <version>4.5.0.17077</version>-->
+<!--            <type>swc</type>-->
+<!--        </dependency>-->
+        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>

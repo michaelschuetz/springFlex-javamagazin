@@ -12,7 +12,7 @@
         <jm.name>Spring Flex Application</jm.name>
         <web.context.root>springFlex-javamagazin</web.context.root>
 
-        <flex.version>4.5.0.17077</flex.version>
+        <flex.version>4.0.0.14159</flex.version>
         <flexmojos.version>4.0-beta-3</flexmojos.version>
         <spring.version>3.0.5.RELEASE</spring.version>
         <!-- TODO examine latest version springframework.org/spring-flex -->

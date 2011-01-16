@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" >
+	
+	<fx:Metadata>
+		[Event(name="navigate", type="events.NavigationEvent")]
+		[Event(name="complete", type="flash.events.Event")]
+	</fx:Metadata> 
+
+	<fx:Script>
+		<![CDATA[
+			import domain.Customer;
+			import domain.Order;
+			
+			import events.NavigationEvent;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			import mx.formatters.DateFormatter;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.components.Application;
+			
+			private var popup:InfoPopup;
+			
+			[Bindable]
+			private var currentCustomer:Customer = new Customer();
+
+			public var orderItems:IList = new ArrayCollection();
+
+			private function onClickSendOrder() : void {
+				
+				var allValidators:Array = [myValidator1, myValidator2, myValidator3, 
+					myValidator4, myValidator5, myValidator6, 
+					myValidator7,
+					vornameValidator, nachnameValidator];
+				var vResults:Array = Validator.validateAll(allValidators);
+				if(vResults.length > 0){
+					Alert.show("Angaben sind fehlerhaft", "Fehler");
+					return;
+				}
+
+				var order:Order = new Order();
+				order.customer = this.currentCustomer;
+				order.orderItems = orderItems;
+				orderService.order(order);
+			}
+			
+			private function onClickBack() : void {
+				var event:NavigationEvent = new NavigationEvent(NavigationEvent.NAVIGATE);
+				event.targetPage = NavigationEvent.ORDERING;
+				dispatchEvent(event);
+			}
+			
+			private function showConfirmation() : void {
+				this.popup = new InfoPopup();
+				this.popup.onOk = onOkHandler;
+				this.popup.cancellabe = false;
+				this.popup.info = "Bestellung wurde übernommen";
+				this.popup.title= "Bestellbestätigung";
+				
+				PopUpManager.addPopUp(this.popup, this, true);
+				PopUpManager.centerPopUp(this.popup);
+			}
+
+			
+			private function onOkHandler() : void {
+				PopUpManager.removePopUp(this.popup);
+				
+				var event:NavigationEvent = new NavigationEvent(NavigationEvent.NAVIGATE);
+				event.targetPage = NavigationEvent.ORDERING;
+				dispatchEvent(event);
+			}
+			
+			private function handleOrderResult(event:ResultEvent) : void {
+				showConfirmation();
+				
+				var completeEvent:Event = new Event("complete");
+				
+				dispatchEvent(completeEvent);
+				
+				currentCustomer = new Customer();
+			}
+			
+			private function handleOrderFault(event:FaultEvent) : void {
+				this.popup = new InfoPopup();
+				this.popup.onOk = onOkHandler;
+				this.popup.cancellabe = false;
+				this.popup.info = "Bestellung wurde nicht angenommen";
+				this.popup.title= "Fehler";
+				
+				PopUpManager.addPopUp(this.popup, this, true);
+				PopUpManager.centerPopUp(this.popup);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+		<s:RemoteObject id="orderService" destination="orderService">
+			<s:method name="order" result="handleOrderResult(event)" fault="handleOrderFault(event)"/>
+		</s:RemoteObject>
+
+		<mx:StringValidator id="vornameValidator" source="{vorname}" property="text" required="true" minLength="3" />
+		<mx:StringValidator id="nachnameValidator" source="{vorname}" property="text" required="true" minLength="3" />
+		
+		<mx:Validator id="myValidator1" source="{vorname}" property="text" required="true" />
+		<mx:Validator id="myValidator2" source="{nachname}" property="text" required="true" />
+		<mx:Validator id="myValidator3" source="{geburtsdatum}" property="text" required="true" />
+		<mx:Validator id="myValidator4" source="{telefon}" property="text" required="true" />
+		<mx:Validator id="myValidator5" source="{strasse}" property="text" required="true" />
+		<mx:Validator id="myValidator6" source="{postleitzahl}" property="text" required="true" />
+		<mx:Validator id="myValidator7" source="{stadt}" property="text" required="true" />
+		
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout paddingLeft="10" horizontalAlign="center"/>       
+	</s:layout>
+	
+	
+	<mx:Form id="form">
+		
+		<mx:FormItem label="Vorname" required="true">
+			<s:TextInput id="vorname" text="@{currentCustomer.firstname}"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="Nachname" required="true">
+			<s:TextInput id="nachname"  text="@{currentCustomer.lastname}"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="Geburtsdatum" required="true" width="100%">
+			<mx:DateField formatString="DD.MM.YYYY" id="geburtsdatum" width="100%" selectedDate="@{currentCustomer.birthdate}"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="Telefon" required="true">
+			<s:TextInput id="telefon" text="@{currentCustomer.phone}" />
+		</mx:FormItem>
+		
+		<mx:FormItem label="Straße" required="true">
+			<s:TextInput id="strasse" text="@{currentCustomer.street}" />
+		</mx:FormItem>
+		
+		<mx:FormItem label="Postleitzahl" required="true">
+			<s:TextInput id="postleitzahl" text="@{currentCustomer.postal}" />
+		</mx:FormItem>
+		
+		<mx:FormItem label="Stadt" required="true">
+			<s:TextInput id="stadt" text="@{currentCustomer.city}" />
+		</mx:FormItem>		
+		
+		<mx:FormItem label="Newsletter abonnieren" width="100%">
+			<s:CheckBox id="newsletter" selected="@{currentCustomer.newsletter}"/>	
+		</mx:FormItem>
+		
+	</mx:Form>
+
+	<s:Group width="100%">
+		<mx:LinkButton label="Zurück" styleName="link" click="onClickBack()" left="0"/>
+		<mx:LinkButton label="Bestellen" styleName="link" click="onClickSendOrder()" right="0"/>
+	</s:Group>
+	
+</s:Group>

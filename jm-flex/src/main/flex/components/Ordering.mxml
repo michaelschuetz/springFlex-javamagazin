@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 creationComplete="init()">
+	
+	<fx:Metadata>
+		[Event(name="navigate", type="events.NavigationEvent")]
+	</fx:Metadata> 
+
+	<fx:Script>
+		<![CDATA[
+			import domain.OrderItem;
+			import domain.Pizza;
+			
+			import events.NavigationEvent;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			 
+			[Bindable]
+			private var pizzas:IList = new ArrayCollection();
+			
+			[Bindable]
+			public var orderItems:IList = new ArrayCollection();
+			
+			public function init() : void {
+				
+				pizzas = new ArrayCollection();
+				orderItems = new ArrayCollection();
+				
+				var p1:Pizza = new Pizza();
+				p1.name = "Salami";
+				p1.price = 5.0;
+				
+				var p2:Pizza = new Pizza();
+				p2.name = "Pisa";
+				p2.price = 6.0;
+				
+				var p3:Pizza = new Pizza();
+				p3.name = "Tonno";
+				p3.price = 4.5;
+				
+				pizzas.addItem(p1);
+				pizzas.addItem(p2);
+				pizzas.addItem(p3);
+			}
+			
+			private function dragDropHandler(event:DragEvent) : void {
+				var item:Object = (event.dragInitiator as DataGrid).selectedItem;
+				if(item is Pizza){
+					var pizza:Pizza = item as Pizza;
+					var orderItem:OrderItem;
+					for each(var tmpOrderItem:OrderItem in this.orderItems){
+						if(tmpOrderItem.pizza.name == pizza.name){
+							orderItem = tmpOrderItem;
+						}
+					}
+					if(orderItem == null){
+						orderItem = new OrderItem();
+						orderItem.pizza = pizza;
+						this.orderItems.addItem(orderItem);
+					}
+					orderItem.amount++;
+					orderItemsDG.dataProvider = this.orderItems;
+				}
+			}
+			
+			private function dragEnterHandler(event:DragEvent) : void {
+				var item:Object = (event.dragInitiator as DataGrid).selectedItem;
+				if(item is Pizza){
+					var dropTarget:DataGrid = event.currentTarget as DataGrid;
+					DragManager.acceptDragDrop(dropTarget);
+				}
+			}
+			
+			public function onClickRemovePizza(event:MouseEvent) : void {
+				var orderItem:OrderItem = orderItemsDG.selectedItem as OrderItem;
+				
+				if(orderItem.amount == 1){
+					var index:int = orderItems.getItemIndex(orderItem);
+					orderItems.removeItemAt(index);
+				} else {
+					orderItem.amount--;
+					// self assignment to cause view refresh
+					orderItemsDG.dataProvider = orderItems;
+				}
+			}
+			
+			private function onClickNext() : void {
+				var event:NavigationEvent = new NavigationEvent(NavigationEvent.NAVIGATE);
+				event.targetPage = NavigationEvent.CUSTOMER_DATA;
+				dispatchEvent(event);
+			}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout paddingLeft="10" paddingTop="10" gap="50" />       
+	</s:layout>
+	
+	<s:Group>
+		
+		<s:layout>
+			<s:HorizontalLayout paddingLeft="10" paddingTop="10" gap="50" />       
+		</s:layout>
+		
+		<mx:DataGrid id="pizzaDG" dataProvider="{pizzas}" dragEnabled="true" >
+			<mx:columns>
+				<mx:DataGridColumn headerText="Name" dataField="name"/>
+				<mx:DataGridColumn headerText="Preis" dataField="price"/>
+			</mx:columns>
+		</mx:DataGrid>
+		
+		
+		<mx:DataGrid id="orderItemsDG" dataProvider="{orderItems}" dragDrop="dragDropHandler(event)" dragEnter="dragEnterHandler(event)" >
+			<mx:columns>
+				<mx:DataGridColumn headerText="Name" dataField="pizza.name"/>
+				<mx:DataGridColumn headerText="Anzahl" dataField="amount"/>
+				<mx:DataGridColumn width="25" resizable="false">
+					<mx:itemRenderer>
+						<fx:Component>
+							<mx:VBox horizontalAlign="center" verticalAlign="middle" >
+								<mx:Image source="@Embed('/assets/cart_delete.png')" buttonMode="true" useHandCursor="true"
+										  click="{outerDocument.onClickRemovePizza(event)}"/>
+							</mx:VBox>
+						</fx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+			</mx:columns>
+		</mx:DataGrid>
+	</s:Group>
+	
+	<mx:HBox width="100%" horizontalAlign="right">
+		<mx:LinkButton label="Weiter >>" styleName="link" click="onClickNext()" enabled="{orderItems.length > 0}"/>
+	</mx:HBox>
+	
+</s:Group>

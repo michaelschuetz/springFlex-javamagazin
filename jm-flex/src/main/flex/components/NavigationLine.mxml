@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			public var loggedInUser:String = "";
+			
+			[Bindable]
+			public var logoutHandler:Function;
+			
+			private function fireLogoutHandler() : void {
+				if(logoutHandler != null){
+					logoutHandler.call();
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<mx:HBox width="100%" horizontalAlign="right" paddingRight="15">
+		<mx:HBox verticalAlign="middle">
+			<mx:Label text="Benutzer" styleName="strong"/>			
+			<mx:Label text="{loggedInUser}  |" />			
+			<mx:LinkButton label="Logout" styleName="link" click="fireLogoutHandler()" />
+			
+		</mx:HBox>
+	</mx:HBox>
+
+</s:Group>
