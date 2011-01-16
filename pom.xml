@@ -13,8 +13,8 @@
         <web.context.root>springFlex-javamagazin</web.context.root>
 
         <flex.version>4.5.0.17077</flex.version>
-        <flexmojos.version>4.0-alpha-5</flexmojos.version>
-        <spring.version>3.0.4.RELEASE</spring.version>
+        <flexmojos.version>4.0-beta-3</flexmojos.version>
+        <spring.version>3.0.5.RELEASE</spring.version>
         <!-- TODO examine latest version springframework.org/spring-flex -->
         <spring-flex.version>1.0.3.RELEASE</spring-flex.version>
     </properties>

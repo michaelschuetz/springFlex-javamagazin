@@ -7,7 +7,7 @@ Source Code for Spring3 Flex4 article in JavaMagazin.
 * Flex 4
 * Maven 3
 
-Build successful with Maven 2.2 and 3.beta2.
+Build successful with Maven 2.2 and 3.0.1
 
 Deployable against Apache Tomcat 6 web container.
 
