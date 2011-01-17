@@ -1,0 +1,9 @@
+.project
+.settings
+target
+bin
+.classpath
+.idea
+*.iml
+jm-flex/target
+jm-war/target
