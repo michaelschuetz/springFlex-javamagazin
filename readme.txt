@@ -32,7 +32,6 @@ TODO:
 * add Spring JUnit test case
 * try updating Spring-flex(blazeds) version
 * test if all listed repos are required (see TODO's)
-* test usage of Apache 7
 * fix duplicate spring config
 
 Extension:
